@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-12">
+      <h1>Estadísticas</h1>
+      <hr>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <app-horizontal-bar-chart
+        [results]="results"
+        xLabel="Ventas"
+        yLabel="Comercios">
+      </app-horizontal-bar-chart>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <app-pie-chart
+        [results]="results">
+      </app-pie-chart>
+    </div>
+  </div>
+</div>

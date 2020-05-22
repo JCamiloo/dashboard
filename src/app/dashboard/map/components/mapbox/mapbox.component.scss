@@ -5,6 +5,7 @@
 
 @media (min-width: 768px) { 
   #map {
-    height: calc(100% - 56px);
+    width: 100vw;
+    height: calc(100vh - 56px);
   }
 }
