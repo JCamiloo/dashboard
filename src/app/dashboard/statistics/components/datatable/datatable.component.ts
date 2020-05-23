@@ -12,6 +12,7 @@ export class DatatableComponent implements OnChanges {
   rows: CommerceResult[] = [];
   loadingIndicator = true;
   messagesTable = { emptyMessage: 'No hay datos disponibles para tu búsqueda' };
+  scrollbarH = (window.innerWidth < 1200);
   columns = [
     { name: 'Id', sortable: true, },
     { name: 'Dirección', sortable: false },
@@ -24,10 +25,13 @@ export class DatatableComponent implements OnChanges {
     { name: 'Horario', sortable: false },
   ];
 
-  constructor() { }
+  constructor() {
+    window.onresize = () => {
+      this.scrollbarH = (window.innerWidth < 1200);
+    };
+  }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     if (changes.results && !changes.results.firstChange){
       setTimeout(() => {
         this.loadingIndicator = false;
