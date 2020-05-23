@@ -1,15 +1,16 @@
-<div class="container">
+<div class="container mb-3">
   <div class="row mt-4">
     <div class="col-12">
       <h1>Estadísticas</h1>
       <hr>
+      <p> Aquí encontrarás un completo análisis de los comercios de tu región. </p>
     </div>
   </div>
 
   <div class="row">
     <div class="col-12 col-md-6">
       <app-horizontal-bar-chart
-        [results]="results"
+        [results]="graphResults"
         xLabel="Ventas"
         yLabel="Comercios">
       </app-horizontal-bar-chart>
@@ -17,8 +18,16 @@
 
     <div class="col-12 col-md-6">
       <app-pie-chart
-        [results]="results">
+        [results]="graphResults">
       </app-pie-chart>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <app-datatable
+        [results]="datatableResults">
+      </app-datatable>
     </div>
   </div>
 </div>
