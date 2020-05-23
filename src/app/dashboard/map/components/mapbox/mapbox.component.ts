@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MapService } from '../../services/map.service';
+import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import * as Mapboxgl from 'mapbox-gl';
 
@@ -13,7 +14,7 @@ export class MapboxComponent implements OnInit {
   map: Mapboxgl.Map;
   layer: any = {};
 
-  constructor(private mapSrv: MapService) { }
+  constructor(private mapSrv: MapService, private toast: ToastrService) { }
 
   ngOnInit() {
     this.renderMap();
@@ -38,6 +39,8 @@ export class MapboxComponent implements OnInit {
       data.features.forEach(feature => !feature.properties.name && (feature.properties.name = 'Otro comercio'));
       this.layer = data;
       this.addLayer();
+    }, error => {
+      this.toast.error('Ha ocurrido un error');
     });
   }
 

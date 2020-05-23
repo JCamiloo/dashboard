@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { StatisticsService } from '../services/statistics.service';
 import { GraphResult, CommerceResult } from 'src/app/interfaces/interfaces';
@@ -13,7 +14,7 @@ export class ContainerComponent implements OnInit {
   graphResults: GraphResult[] = [];
   datatableResults: CommerceResult[] = [];
 
-  constructor(private statisticsSrv: StatisticsService) { }
+  constructor(private statisticsSrv: StatisticsService, private toast: ToastrService) { }
 
   ngOnInit() {
     this.fetchGraphData();
@@ -24,13 +25,21 @@ export class ContainerComponent implements OnInit {
   fetchGraphData() {
     this.statisticsSrv.fetchGraphData().pipe(map(resp => {
       return resp.map(({name, sales}) => ({name, value: Number(sales)}))
-    })).subscribe(graphData => this.graphResults = graphData);
+    })).subscribe(graphData => { 
+      this.graphResults = graphData
+    }, error => {
+      this.toast.error('Ha ocurrido un error');
+    });
   }
 
   // Petición de datos. Transformación a la estructura que necesita la tabla. 
   fetchDatatableData() {
     this.statisticsSrv.fetchDatatableData().pipe(map(resp => {
       return resp.map(commerce => ({...commerce, sales: Number(commerce.sales)}))
-    })).subscribe(tableData => this.datatableResults = tableData);
+    })).subscribe(tableData => {
+      this.datatableResults = tableData
+    }, error => {
+      this.toast.error('Ha ocurrido un error');
+    });
   }
 }
