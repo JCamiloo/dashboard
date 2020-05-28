@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   mapbox_key: 'pk.eyJ1IjoiamNhbWlsb28iLCJhIjoiY2s2NDZiaDdxMGM3aTNqbXBtMnk3ZmQ5biJ9.bLy1nepm5WTdN8sqWiNd0w',
-  api_url: 'http://34.71.9.156',
+  api_url: 'https://node-restserver-co.herokuapp.com',
   colors: {
     domain: [
       '#e3253c',

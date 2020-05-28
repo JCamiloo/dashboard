@@ -2,52 +2,60 @@
   class="material"
   [rows]="rows"
   [loadingIndicator]="loadingIndicator"
-  [columns]="columns"
   columnMode="force"
   [headerHeight]="50"
   [footerHeight]="50"
   [scrollbarH]="scrollbarH"
+  [limit]="5"
   rowHeight="auto"
 >
   <ngx-datatable-column
     name="Id"
     prop="id"
-    [maxWidth]="60">
+    [maxWidth]="60"
+    [sortable]="true">
   </ngx-datatable-column>
 
   <ngx-datatable-column
     name="Nit"
-    prop="nit">
+    prop="nit"
+    [sortable]="true">
   </ngx-datatable-column>
 
   <ngx-datatable-column
     name="Nombre"
-    prop="name">
+    prop="name"
+    [sortable]="true">
   </ngx-datatable-column>
 
   <ngx-datatable-column
     name="Propietario"
-    prop="owner">
+    prop="owner"
+    [sortable]="true">
   </ngx-datatable-column>
 
   <ngx-datatable-column
     name="Dirección"
-    prop="address">
+    prop="address"
+    [sortable]="false">
   </ngx-datatable-column>
 
   <ngx-datatable-column
     name="Teléfono"
-    prop="phone">
+    prop="phone"
+    [sortable]="false">
   </ngx-datatable-column>
 
   <ngx-datatable-column
     name="Días de atención"
-    prop="days">
+    prop="days"
+    [sortable]="false">
   </ngx-datatable-column>
 
   <ngx-datatable-column
     name="Horario"
-    prop="schedule">
+    prop="schedule"
+    [sortable]="false">
   </ngx-datatable-column>
 
   <ngx-datatable-column name="Ventas" prop="sales" >

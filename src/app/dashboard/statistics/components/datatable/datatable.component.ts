@@ -13,17 +13,6 @@ export class DatatableComponent implements OnChanges {
   loadingIndicator = true;
   messagesTable = { emptyMessage: 'No hay datos disponibles para tu búsqueda' };
   scrollbarH = (window.innerWidth < 1200);
-  columns = [
-    { name: 'Id', sortable: true, },
-    { name: 'Dirección', sortable: false },
-    { name: 'Días de atención', sortable: false },
-    { name: 'Nombre', sortable: true },
-    { name: 'Nit', sortable: true },
-    { name: 'Propietario', sortable: true },
-    { name: 'Teléfono', sortable: false },
-    { name: 'Ventas', sortable: true },
-    { name: 'Horario', sortable: false },
-  ];
 
   constructor() {
     window.onresize = () => {
@@ -36,7 +25,7 @@ export class DatatableComponent implements OnChanges {
       setTimeout(() => {
         this.loadingIndicator = false;
         this.rows = this.results;
-      }, 1500);
+      }, 800);
     }
   }
 }
