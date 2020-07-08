@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { BasicGraph, Commerce } from 'src/app/interfaces/interfaces';
+import { BasicGraph, Commerce } from '../models/statistics.model';
 const API = environment.api_url;
 
 @Injectable({

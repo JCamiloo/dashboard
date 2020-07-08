@@ -1,7 +1,7 @@
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { StatisticsService } from '../services/statistics.service';
-import { GraphResult, CommerceResult } from 'src/app/interfaces/interfaces';
+import { GraphResult, CommerceResult } from '../models/statistics.model';
 import { map } from 'rxjs/operators';
 
 @Component({

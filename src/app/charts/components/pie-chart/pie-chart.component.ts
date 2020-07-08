@@ -1,6 +1,6 @@
 import { environment } from 'src/environments/environment';
 import { Component, Input } from '@angular/core';
-import { GraphResult } from 'src/app/interfaces/interfaces';
+import { GraphResult } from '../../../dashboard/statistics/models/statistics.model';
 
 @Component({
   selector: 'app-pie-chart',

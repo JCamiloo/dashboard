@@ -1,7 +1,7 @@
 import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Layer } from './../../../interfaces/interfaces';
+import { Layer } from '../models/map.model';
 const API = environment.api_url;
 
 @Injectable({

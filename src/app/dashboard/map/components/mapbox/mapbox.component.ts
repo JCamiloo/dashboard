@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { MapService } from '../../services/map.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Store } from '@ngrx/store';
+import * as fromStore from '../../store';
 import * as Mapboxgl from 'mapbox-gl';
 
 @Component({
@@ -9,14 +11,22 @@ import * as Mapboxgl from 'mapbox-gl';
   templateUrl: './mapbox.component.html',
   styleUrls: ['./mapbox.component.scss']
 })
-export class MapboxComponent implements OnInit {
+export class MapboxComponent implements OnInit, OnDestroy {
 
   map: Mapboxgl.Map;
   layer: any = {};
+  susbcriptions: Subscription[] = [];
 
-  constructor(private mapSrv: MapService, private toast: ToastrService) { }
+  constructor(private toast: ToastrService, private store: Store<fromStore.MapState>) { }
 
   ngOnInit() {
+    // Solo se ejecutará ejecuta el dispatch cuando no hayan datos cargados.
+    this.susbcriptions.push(
+      this.store.select(fromStore.getMapLoaded).subscribe(loaded => {
+        !loaded && this.store.dispatch(new fromStore.LoadLayer())
+      })
+    );
+    
     this.renderMap();
   }
 
@@ -35,13 +45,17 @@ export class MapboxComponent implements OnInit {
 
   // Petición de datos, validación cuando un comercio no tiene nombre y carga de datos al mapa.
   fetchLayer() {
-    this.mapSrv.fetchLayer().subscribe(data => {
-      data.features.forEach(feature => !feature.properties.name && (feature.properties.name = 'Otro comercio'));
-      this.layer = data;
-      this.addLayer();
-    }, error => {
-      this.toast.error('Ha ocurrido un error');
-    });
+    this.susbcriptions.push(
+      this.store.select(fromStore.getMapLayer).subscribe(data => {
+        if (data !== null) {
+          data.features.forEach(feature => !feature.properties.name && (feature.properties.name = 'Otro comercio'));
+          this.layer = data;
+          this.addLayer();
+        } else {
+          this.toast.error('Intente más tarde');
+        }
+      })
+    );
   }
 
   // Se añade una capa de circulos y otra de nombres en cada ubicación.
@@ -75,5 +89,9 @@ export class MapboxComponent implements OnInit {
         'circle-color': '#B32B30'
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.susbcriptions.forEach(subscription => subscription.unsubscribe());
   }
 }
