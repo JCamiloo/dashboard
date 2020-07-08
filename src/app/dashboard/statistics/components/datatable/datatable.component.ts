@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { CommerceResult } from '../../models/statistics.model';
+import { Subscription } from 'rxjs';
 import { debounceTime, map, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({

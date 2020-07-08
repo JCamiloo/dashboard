@@ -2,7 +2,10 @@ import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { StatisticsService } from '../services/statistics.service';
 import { GraphResult, CommerceResult } from '../models/statistics.model';
+import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import * as fromStore from '../store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-container',
@@ -11,35 +14,17 @@ import { map } from 'rxjs/operators';
 })
 export class ContainerComponent implements OnInit {
 
-  graphResults: GraphResult[] = [];
-  datatableResults: CommerceResult[] = [];
+  graphResults$: Observable<GraphResult[]>;
+  graphResults: GraphResult[];
+  datatableResults$: Observable<CommerceResult[]>;
+  datatableResults: CommerceResult[];
 
-  constructor(private statisticsSrv: StatisticsService, private toast: ToastrService) { }
+  constructor(private store: Store<fromStore.StatisticsState>) { }
 
   ngOnInit() {
-    this.fetchGraphData();
-    this.fetchDatatableData();
-  }
-
-  // Petición de datos. Transformación a la estructura que necesitan las gráficas. 
-  fetchGraphData() {
-    this.statisticsSrv.fetchGraphData().pipe(map(resp => {
-      return resp.map(({name, sales}) => ({name, value: Number(sales)}))
-    })).subscribe(graphData => { 
-      this.graphResults = graphData
-    }, error => {
-      this.toast.error('Ha ocurrido un error');
-    });
-  }
-
-  // Petición de datos. Transformación a la estructura que necesita la tabla. 
-  fetchDatatableData() {
-    this.statisticsSrv.fetchDatatableData().pipe(map(resp => {
-      return resp.map(commerce => ({...commerce, sales: Number(commerce.sales)}))
-    })).subscribe(tableData => {
-      this.datatableResults = tableData
-    }, error => {
-      this.toast.error('Ha ocurrido un error');
-    });
+    this.store.dispatch(new fromStore.LoadGraph());
+    this.store.dispatch(new fromStore.LoadCommerces());
+    this.graphResults$ = this.store.select(fromStore.getStatisticsGraphData);
+    this.datatableResults$ = this.store.select(fromStore.getStatisticsCommercesDatatable);
   }
 }

@@ -10,7 +10,7 @@
   <div class="row">
     <div class="col-12 col-md-6">
       <app-horizontal-bar-chart
-        [results]="graphResults"
+        [results]="graphResults$ | async"
         xLabel="Ventas"
         yLabel="Comercios">
       </app-horizontal-bar-chart>
@@ -18,7 +18,7 @@
 
     <div class="col-12 col-md-6">
       <app-pie-chart
-        [results]="graphResults">
+        [results]="graphResults$ | async">
       </app-pie-chart>
     </div>
   </div>
@@ -26,7 +26,7 @@
   <div class="row mt-5">
     <div class="col-12">
       <app-datatable
-        [results]="datatableResults">
+        [results]="datatableResults$ | async">
       </app-datatable>
     </div>
   </div>

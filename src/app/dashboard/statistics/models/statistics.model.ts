@@ -6,8 +6,8 @@ export interface BasicGraph {
 
 // Estructura que reciben las gráficas implementadas.
 export interface GraphResult {
-  name: string;
-  value: number;
+  name?: string;
+  value?: number;
 }
 
 //Respuesta de petición de datos para tabla.
