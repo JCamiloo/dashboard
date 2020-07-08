@@ -1,7 +1,8 @@
 # Features
-* Nested View
-* mapbox-gl
-* ngx-charts
-* ngx-datatable
-* ngx-toastr
+* Nested view
+* NgRx for state management
+* Mapbox-gl
+* Ngx-charts
+* Ngx-datatable
+* Ngx-toastr
 * RxJS
